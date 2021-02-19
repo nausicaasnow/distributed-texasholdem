@@ -123,6 +123,12 @@ socket.on('dealt', function (data) {
   $('#mainContent').remove();
 });
 
+socket.on('rerenderBuyIn', function (data) {
+  const user = data.username;
+  const buyIns = data.buyIns;
+  alert(user + ' buy a new buyin, totally ' + buyIns);
+});
+
 socket.on('rerender', function (data) {
   if (data.myBet == 0) {
     $('#usernamesCards').text(data.username + ' - My Cards');
@@ -190,6 +196,10 @@ function playNext() {
   socket.emit('startNextRound', {});
 }
 
+function buyNewBuyIn() {
+  socket.emit('userBuyNewBuyin', {});
+}
+
 socket.on('reveal', function (data) {
   $('#usernameFold').hide();
   $('#usernameCheck').hide();
@@ -231,6 +241,9 @@ socket.on('endHand', function (data) {
   $('#table-title').text(data.winner + ' takes the pot of $' + data.pot);
   $('#playNext').html(
     '<button onClick=playNext() id="playNextButton" class="btn white black-text menuButtons">Start Next Game</button>'
+  );
+  $('#buyIn').html(
+    '<button onClick=buyNewBuyIn() id="buyInButton" class="btn white black-text menuButtons">Buy a new BuyIn</button>'
   );
   $('#blindStatus').text('');
   if (data.folded == 'Fold') {
@@ -789,6 +802,7 @@ socket.on('displayPossibleMoves', function (data) {
 
 function renderSelf(data) {
   $('#playNext').empty();
+  $('#buyIn').empty();
   $('#usernamesMoney').text('$' + data.money);
   if (data.text == 'Their Turn') {
     $('#playerInformationCard').removeClass('grey');

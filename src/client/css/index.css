@@ -80,6 +80,10 @@ code {
   margin: 2px;
 }
 
+.buyInButton {
+  margin-top: 10px;
+}
+
 .card-content {
   font-size: 16px;
 }

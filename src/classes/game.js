@@ -817,6 +817,18 @@ const Game = function (name, host) {
     return true;
   };
 
+  this.buyNewBuyIn = (socket) => {
+    const player = this.findPlayer(socket.id);
+    player.money += 100;
+    player.buyIns += 1;
+    for (let pn = 0; pn < this.getNumPlayers(); pn++) {
+      this.players[pn].emit('rerenderBuyIn', {
+        username: player.getUsername(),
+        buyIns: player.buyIns,
+      });
+    }
+  }
+
   this.call = (socket) => {
     this.checkBigBlindWent(socket);
     const player = this.findPlayer(socket.id);

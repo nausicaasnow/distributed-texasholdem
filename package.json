@@ -20,8 +20,8 @@
     "socket.io": "^2.3.0"
   },
   "engines": {
-    "node": "^10.16",
-    "yarn": "^1.19"
+    "node": "^15.9.0",
+    "yarn": "^1.17.3"
   },
   "devDependencies": {
     "jest": "^26.0.1"
